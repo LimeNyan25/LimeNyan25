@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 528718890}
   m_Layer: 0
   m_Name: ground (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 575357785}
   m_Layer: 0
   m_Name: ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1060,6 +1060,8 @@ MonoBehaviour:
   hp: 50
   visual: {fileID: 70863321}
   jumpPower: 8
+  fallLimit: -10
+  lives: 3
 --- !u!114 &672032548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1922,7 +1924,7 @@ GameObject:
   - component: {fileID: 1857316792}
   m_Layer: 0
   m_Name: ground (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2060,7 +2062,7 @@ GameObject:
   - component: {fileID: 1872854040}
   m_Layer: 0
   m_Name: ground (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
