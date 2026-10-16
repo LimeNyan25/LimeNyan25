@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.LowLevelPhysics2D.PhysicsLayers;
 
+using TMPro;
+using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -20,6 +23,9 @@ public class PlayerController : MonoBehaviour
     private bool isGameOver = false;
     public Vector2 airScale = new Vector2(0.8f, 1.2f);
     private float facing = 1f;
+    public TMP_Text livesText;
+    public GameObject gameOverPanel;
+    public string nextSceneName = "Stage2";
 
     void Start()
 
@@ -46,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         transform.position = startPosition;
+        livesText.text = "LIFE " + lives;
     }
     void OnJump(InputValue value)
     {
@@ -74,7 +81,18 @@ public class PlayerController : MonoBehaviour
            // Debug.Log("공중");
         }
     }
-
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Goal"))
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else if (other.CompareTag("Trap"))
+        {
+            LoseLife();
+            //루즈라이프에 낙사는 신경쓰지말고 if 목숨0일때 게임오버가 적용되는것
+        }
+    }
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -102,16 +120,8 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y < fallLimit)
         {
-            lives -= 1;
-            transform.position = startPosition;
-            rb.linearVelocity = Vector2.zero;
-            Debug.Log("낙사. 남은 목숨 " + lives);
-
-            if (lives <= 0)
-            {
-                isGameOver = true;
-                Debug.Log("게임 오버");
-            }
+            LoseLife();
+            //loselife로 따로 저장해둠
         }
         
         if (isGrounded)
@@ -125,4 +135,18 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    void LoseLife()
+    {
+        lives -= 1;
+        transform.position = startPosition;
+        rb.linearVelocity = Vector2.zero;
+        livesText.text = "LIFE " + lives;
+
+        if (lives <= 0)
+        {
+            isGameOver = true;
+            gameOverPanel.SetActive(true);
+        }
+    }
+
 }
